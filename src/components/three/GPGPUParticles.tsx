@@ -3,6 +3,7 @@
 import { useRef, useEffect, useMemo, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
+import { gsap } from "gsap";
 import { simplexNoiseGLSL } from "./shaders/CrystalShader";
 
 interface GPGPUParticlesProps {
@@ -102,7 +103,9 @@ export default function GPGPUParticles({ currentRoute }: GPGPUParticlesProps) {
     return {
       uTime: { value: 0 },
       uSpeed: { value: 0.18 },
-      uCollisionRects: { value: [] as THREE.Vector4[] },
+      uCollisionRects: { 
+        value: Array(6).fill(null).map(() => new THREE.Vector4(999.0, 999.0, 999.0, 999.0)) 
+      },
       uResolution: { value: new THREE.Vector2(800, 600) },
       uColor: { value: new THREE.Color("#34d399") },
       uScale: { value: 1.0 },
