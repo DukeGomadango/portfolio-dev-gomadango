@@ -1,25 +1,16 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import { useSynthAudio } from "@/hooks/useSynthAudio";
 import { useTransitionContext } from "../layout/TransitionProvider";
-
-// Global Audio Engine Instance (Persists across client navigations)
-let globalAudioEngine: ReturnType<typeof useSynthAudio> | null = null;
 
 export default function AudioController() {
   const [muted, setMuted] = useState(true);
   const { currentRoute, scrollProgress } = useTransitionContext();
 
-  // Lazily retrieve or create global audio engine instance on client
-  const audioEngine = useMemo(() => {
-    if (typeof window === "undefined") return null;
-    if (!globalAudioEngine) {
-      globalAudioEngine = useSynthAudio();
-    }
-    return globalAudioEngine;
-  }, []);
+  // Call the custom audio hook directly at the top level (conforms to React Rules of Hooks)
+  const audioEngine = useSynthAudio();
 
   // Sync scroll progress and speed to filter cutoff frequency
   useEffect(() => {
