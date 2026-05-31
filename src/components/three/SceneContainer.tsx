@@ -6,6 +6,8 @@ import { useFBO } from "@react-three/drei";
 import * as THREE from "three";
 import PerformanceTracker from "./PerformanceTracker";
 import AbstractNexus from "./AbstractNexus";
+import GPGPUParticles from "./GPGPUParticles";
+import { useTransitionContext } from "../layout/TransitionProvider";
 
 /**
  * FBO (Frame Buffer Object) Background Capture Helper Component
@@ -32,6 +34,7 @@ export default function SceneContainer() {
   const [bgTexture, setBgTexture] = useState<THREE.Texture | null>(null);
   const [isFallbacked, setIsFallbacked] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const { currentRoute } = useTransitionContext();
 
   // Mount check to avoid mismatch hydration issues on SSG
   useEffect(() => {
@@ -84,6 +87,9 @@ export default function SceneContainer() {
 
         {/* FBO Buffer Capture */}
         <FBOBufferRenderer onCapture={setBgTexture} />
+
+        {/* GPGPU Curl Flow & Dynamic Text Collision Particle Field */}
+        <GPGPUParticles currentRoute={currentRoute} />
 
         {/* Abstract Nexus Morph Core */}
         <AbstractNexus bgTexture={bgTexture} />
