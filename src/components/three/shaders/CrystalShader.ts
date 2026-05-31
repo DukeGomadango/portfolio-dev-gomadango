@@ -179,6 +179,11 @@ export const CrystalShaderMaterial = {
       float b = texture2D(uBgTexture, uv - refractionOffset * 1.15).b;
       vec3 refractedColor = vec3(r, g, b);
 
+      // Robust Awwwards Fallback: If background texture is blank/transparent, blend with stunning glowing crystal core
+      if (length(refractedColor) < 0.01) {
+        refractedColor = mix(uBaseColor * 0.35, uGlowColor * 0.75, fresnel);
+      }
+
       // 3. Complex HSL-tailored blend
       vec3 finalColor = mix(refractedColor, uBaseColor, 0.15);
       

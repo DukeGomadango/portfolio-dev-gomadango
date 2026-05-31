@@ -67,6 +67,14 @@ export default function SceneContainer() {
 
   return (
     <div className="fixed inset-0 -z-10 w-full h-full pointer-events-none transition-opacity duration-1000">
+      {/* Base Deep Dark Background at absolute bottom layer */}
+      <div 
+        className="absolute inset-0 bg-neutral-950 -z-20 pointer-events-none" 
+        style={{ background: "radial-gradient(circle at 50% 50%, #0c0f1d 0%, #030712 100%)" }}
+      >
+        <div className="glow-bg top-1/4 left-1/3 w-[50vw] h-[50vw] bg-dango-green/5" />
+        <div className="glow-bg bottom-1/4 right-1/3 w-[45vw] h-[45vw] bg-dango-pink/5" />
+      </div>
       <Canvas
         camera={{ position: [0, 0, 6], fov: 45 }}
         gl={{

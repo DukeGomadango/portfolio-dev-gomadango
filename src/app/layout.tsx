@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased dark">
-      <body className="min-h-full flex flex-col bg-neutral-950 text-neutral-50 overflow-x-hidden">
+      <body className="min-h-full flex flex-col bg-transparent text-neutral-50 overflow-x-hidden">
         <TransitionProvider>
           {/* Persistent global WebGL layer (WebGL FBO Refraction & Morphing core) */}
           <SceneContainer />
